@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Stock Alert System</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 35px;
+        }
+
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eeeeee;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Stock Alert System</h1>
+
+
+    <!-- ========================= -->
+    <!-- ADD PRODUCT -->
+    <!-- ========================= -->
+
+    <h2>Add Product</h2>
+
+    <input
+        id="productName"
+        type="text"
+        placeholder="Product Name"
+    >
+
+    <input
+        id="category"
+        type="text"
+        placeholder="Category"
+    >
+
+    <input
+        id="price"
+        type="number"
+        placeholder="Price"
+    >
+
+    <input
+        id="quantity"
+        type="number"
+        placeholder="Quantity"
+    >
+
+    <input
+        id="reorderLevel"
+        type="number"
+        placeholder="Reorder Level"
+    >
+
+    <button onclick="addProduct()">
+        Add Product
+    </button>
+
+
+    <!-- ========================= -->
+    <!-- PRODUCTS TABLE -->
+    <!-- ========================= -->
+
+    <h2>Products</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Reorder Level</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="productTable">
+
+        </tbody>
+
+    </table>
+
+
+    <!-- ========================= -->
+    <!-- REORDER ALERTS -->
+    <!-- ========================= -->
+
+    <h2>Reorder Alerts</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Alert ID</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="alertTable">
+
+        </tbody>
+
+    </table>
+
+
+    <!-- ========================= -->
+    <!-- STOCK MOVEMENT -->
+    <!-- ========================= -->
+
+    <h2>Stock Movement</h2>
+
+    <input
+        id="movementProductId"
+        type="number"
+        placeholder="Product ID"
+    >
+
+    <input
+        id="movementQuantity"
+        type="number"
+        placeholder="Quantity"
+    >
+
+    <input
+        id="movementType"
+        type="text"
+        placeholder="IN or OUT"
+    >
+
+    <button onclick="addMovement()">
+        Add Movement
+    </button>
+
+
+    <!-- ========================= -->
+    <!-- STOCK MOVEMENT TABLE -->
+    <!-- ========================= -->
+
+    <h2>Stock Movements</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Movement ID</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="movementTable">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+
+
+        // ==========================================
+        // LOAD PRODUCTS
+        // ==========================================
+
+        function loadProducts() {
+
+            fetch("/products")
+
+                .then(response => response.json())
+
+                .then(products => {
+
+                    let table =
+                        document.getElementById("productTable");
+
+                    table.innerHTML = "";
+
+                    products.forEach(product => {
+
+                        table.innerHTML += `
+
+                            <tr>
+
+                                <td>
+                                    ${product.productId}
+                                </td>
+
+                                <td>
+                                    ${product.productName}
+                                </td>
+
+                                <td>
+                                    ${product.category}
+                                </td>
+
+                                <td>
+                                    ${product.price}
+                                </td>
+
+                                <td>
+                                    ${product.quantity}
+                                </td>
+
+                                <td>
+                                    ${product.reorderLevel}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    });
+
+                });
+
+        }
+
+
+        // ==========================================
+        // ADD PRODUCT
+        // ==========================================
+
+        function addProduct() {
+
+            let product = {
+
+                productName:
+                    document.getElementById("productName").value,
+
+                category:
+                    document.getElementById("category").value,
+
+                price:
+                    Number(
+                        document.getElementById("price").value
+                    ),
+
+                quantity:
+                    Number(
+                        document.getElementById("quantity").value
+                    ),
+
+                reorderLevel:
+                    Number(
+                        document.getElementById("reorderLevel").value
+                    )
+
+            };
+
+
+            fetch("/products", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(product)
+
+            })
+
+            .then(response => response.json())
+
+            .then(() => {
+
+                loadProducts();
+
+                loadAlerts();
+
+            });
+
+        }
+
+
+        // ==========================================
+        // LOAD REORDER ALERTS
+        // ==========================================
+
+        function loadAlerts() {
+
+            fetch("/reorder-alerts")
+
+                .then(response => response.json())
+
+                .then(alerts => {
+
+                    let table =
+                        document.getElementById("alertTable");
+
+                    table.innerHTML = "";
+
+                    alerts.forEach(alert => {
+
+                        table.innerHTML += `
+
+                            <tr>
+
+                                <td>
+                                    ${alert.alertId}
+                                </td>
+
+                                <td>
+                                    ${alert.message}
+                                </td>
+
+                                <td>
+                                    ${alert.status}
+                                </td>
+
+                                <td>
+                                    ${alert.alertDate}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    });
+
+                });
+
+        }
+
+
+        // ==========================================
+        // ADD STOCK MOVEMENT
+        // ==========================================
+
+        function addMovement() {
+
+            let productId =
+                Number(
+                    document.getElementById(
+                        "movementProductId"
+                    ).value
+                );
+
+            let quantity =
+                Number(
+                    document.getElementById(
+                        "movementQuantity"
+                    ).value
+                );
+
+            let movementType =
+                document.getElementById(
+                    "movementType"
+                ).value;
+
+
+            let movement = {
+
+                quantity: quantity,
+
+                movementType: movementType,
+
+                movementDate:
+                    new Date()
+                    .toISOString()
+                    .split("T")[0],
+
+                product: {
+                    productId: productId
+                }
+
+            };
+
+
+            fetch("/stock-movements", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(movement)
+
+            })
+
+            .then(response => response.json())
+
+            .then(() => {
+
+                loadMovements();
+
+            });
+
+        }
+
+
+        // ==========================================
+        // LOAD STOCK MOVEMENTS
+        // ==========================================
+
+        function loadMovements() {
+
+            fetch("/stock-movements")
+
+                .then(response => response.json())
+
+                .then(movements => {
+
+                    let table =
+                        document.getElementById(
+                            "movementTable"
+                        );
+
+                    table.innerHTML = "";
+
+
+                    movements.forEach(movement => {
+
+                        table.innerHTML += `
+
+                            <tr>
+
+                                <td>
+                                    ${movement.movementId}
+                                </td>
+
+                                <td>
+                                    ${movement.product.productId}
+                                </td>
+
+                                <td>
+                                    ${movement.quantity}
+                                </td>
+
+                                <td>
+                                    ${movement.movementType}
+                                </td>
+
+                                <td>
+                                    ${movement.movementDate}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    });
+
+                });
+
+        }
+
+
+        // ==========================================
+        // LOAD EVERYTHING WHEN PAGE OPENS
+        // ==========================================
+
+        loadProducts();
+
+        loadAlerts();
+
+        loadMovements();
+
+
+    </script>
+
+</body>
+</html>
