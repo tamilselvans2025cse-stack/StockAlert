@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Stock Alert - Dashboard</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -16,20 +19,30 @@
             color: #222;
         }
 
+        /* =========================
+           SIDEBAR
+        ========================= */
+
         .sidebar {
+
             position: fixed;
             left: 0;
             top: 0;
+
             width: 230px;
             height: 100vh;
+
             background: #111827;
             color: white;
+
             padding: 30px 20px;
         }
 
         .logo {
+
             font-size: 25px;
             font-weight: bold;
+
             margin-bottom: 45px;
         }
 
@@ -38,176 +51,309 @@
         }
 
         .nav a {
+
             display: block;
+
             text-decoration: none;
+
             color: #cbd5e1;
+
             padding: 14px 15px;
+
             margin-bottom: 10px;
+
             border-radius: 8px;
+
             font-size: 16px;
         }
 
         .nav a:hover,
         .nav a.active {
+
             background: #2563eb;
+
             color: white;
         }
 
+
+        /* =========================
+           MAIN
+        ========================= */
+
         .main {
+
             margin-left: 230px;
+
             padding: 35px;
         }
 
+
+        /* =========================
+           HEADER
+        ========================= */
+
         .top {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-bottom: 30px;
         }
 
         .top h1 {
+
             font-size: 30px;
         }
 
         .top p {
+
             color: #64748b;
+
             margin-top: 5px;
         }
 
         .date {
+
             color: #64748b;
         }
 
+
+        /* =========================
+           SUMMARY CARDS
+        ========================= */
+
         .cards {
+
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 20px;
+
             margin-bottom: 30px;
         }
 
         .card {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.06);
         }
 
         .card-title {
+
             color: #64748b;
+
             font-size: 14px;
+
             margin-bottom: 12px;
         }
 
         .card-value {
+
             font-size: 32px;
+
             font-weight: bold;
         }
 
         .blue {
-            border-left: 5px solid #2563eb;
+
+            border-left:
+                5px solid #2563eb;
         }
 
         .orange {
-            border-left: 5px solid #f59e0b;
+
+            border-left:
+                5px solid #f59e0b;
         }
 
         .red {
-            border-left: 5px solid #dc2626;
+
+            border-left:
+                5px solid #dc2626;
         }
 
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
         .section {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 12px;
+
             margin-bottom: 25px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.06);
         }
 
         .section h2 {
+
             margin-bottom: 20px;
+
             font-size: 20px;
         }
 
+
+        /* =========================
+           TABLE
+        ========================= */
+
         table {
+
             width: 100%;
-            border-collapse: collapse;
+
+            border-collapse:
+                collapse;
         }
 
         th {
+
             background: #f1f5f9;
+
             text-align: left;
+
             padding: 13px;
+
             font-size: 14px;
         }
 
         td {
+
             padding: 13px;
-            border-bottom: 1px solid #e5e7eb;
+
+            border-bottom:
+                1px solid #e5e7eb;
         }
 
+
+        /* =========================
+           STATUS
+        ========================= */
+
         .status-low {
+
             color: #dc2626;
+
             font-weight: bold;
         }
 
         .status-normal {
+
             color: #16a34a;
+
             font-weight: bold;
         }
 
         .movement-in {
+
             color: #16a34a;
+
             font-weight: bold;
         }
 
         .movement-out {
+
             color: #dc2626;
+
             font-weight: bold;
         }
 
+
+        /* =========================
+           EMPTY MESSAGE
+        ========================= */
+
         .empty {
+
             color: #64748b;
+
             padding: 20px 0;
+
+            text-align: center;
         }
 
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
         @media (max-width: 900px) {
+
             .sidebar {
+
                 width: 190px;
             }
 
             .main {
+
                 margin-left: 190px;
             }
 
             .cards {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- SIDEBAR -->
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
     <div class="sidebar">
 
         <div class="logo">
+
             📦 Stock<span>Alert</span>
+
         </div>
+
 
         <div class="nav">
 
             <a href="/" class="active">
+
                 🏠 Dashboard
+
             </a>
+
 
             <a href="/products-page">
+
                 📦 Products
+
             </a>
 
+
             <a href="/movements-page">
+
                 🔄 Stock Movements
+
             </a>
 
         </div>
@@ -215,60 +361,107 @@
     </div>
 
 
-    <!-- MAIN CONTENT -->
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
 
     <div class="main">
+
+
+        <!-- HEADER -->
 
         <div class="top">
 
             <div>
-                <h1>Dashboard</h1>
-                <p>Retail Store Inventory Overview</p>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p>
+                    Retail Store Inventory Overview
+                </p>
+
             </div>
 
-            <div class="date" id="today"></div>
+
+            <div
+                class="date"
+                id="today">
+            </div>
 
         </div>
 
 
-        <!-- SUMMARY CARDS -->
+
+        <!-- =========================
+             SUMMARY CARDS
+        ========================= -->
 
         <div class="cards">
+
+
+            <!-- TOTAL PRODUCTS -->
 
             <div class="card blue">
 
                 <div class="card-title">
+
                     TOTAL PRODUCTS
+
                 </div>
 
-                <div class="card-value" id="totalProducts">
+                <div
+                    class="card-value"
+                    id="totalProducts">
+
                     0
+
                 </div>
 
             </div>
 
+
+
+            <!-- LOW STOCK -->
 
             <div class="card orange">
 
                 <div class="card-title">
+
                     LOW STOCK
+
                 </div>
 
-                <div class="card-value" id="lowStock">
+                <div
+                    class="card-value"
+                    id="lowStock">
+
                     0
+
                 </div>
 
             </div>
 
+
+
+            <!-- REORDER ALERTS -->
 
             <div class="card red">
 
                 <div class="card-title">
+
                     REORDER ALERTS
+
                 </div>
 
-                <div class="card-value" id="totalAlerts">
+                <div
+                    class="card-value"
+                    id="totalAlerts">
+
                     0
+
                 </div>
 
             </div>
@@ -276,29 +469,55 @@
         </div>
 
 
-        <!-- LOW STOCK PRODUCTS -->
+
+        <!-- =========================
+             LOW STOCK PRODUCTS
+        ========================= -->
 
         <div class="section">
 
-            <h2>⚠️ Low Stock Products</h2>
+            <h2>
+                ⚠️ Low Stock Products
+            </h2>
+
 
             <table>
 
                 <thead>
 
                     <tr>
-                        <th>ID</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Reorder Level</th>
-                        <th>Status</th>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Reorder Level
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
                     </tr>
 
                 </thead>
 
-                <tbody id="lowStockTable">
 
+                <tbody
+                    id="lowStockTable">
                 </tbody>
 
             </table>
@@ -306,28 +525,51 @@
         </div>
 
 
-        <!-- RECENT MOVEMENTS -->
+
+        <!-- =========================
+             RECENT MOVEMENTS
+        ========================= -->
 
         <div class="section">
 
-            <h2>🔄 Recent Stock Movements</h2>
+            <h2>
+                🔄 Recent Stock Movements
+            </h2>
+
 
             <table>
 
                 <thead>
 
                     <tr>
-                        <th>ID</th>
-                        <th>Product ID</th>
-                        <th>Quantity</th>
-                        <th>Type</th>
-                        <th>Date</th>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Product ID
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
                     </tr>
 
                 </thead>
 
-                <tbody id="movementTable">
 
+                <tbody
+                    id="movementTable">
                 </tbody>
 
             </table>
@@ -335,133 +577,213 @@
         </div>
 
 
-        <!-- REORDER ALERTS -->
+
+        <!-- =========================
+             REORDER ALERTS
+        ========================= -->
 
         <div class="section">
 
-            <h2>🚨 Reorder Alerts</h2>
+            <h2>
+                🚨 Reorder Alerts
+            </h2>
+
 
             <table>
 
                 <thead>
 
                     <tr>
-                        <th>Alert ID</th>
-                        <th>Message</th>
-                        <th>Status</th>
-                        <th>Date</th>
+
+                        <th>
+                            Alert ID
+                        </th>
+
+                        <th>
+                            Message
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
                     </tr>
 
                 </thead>
 
-                <tbody id="alertTable">
 
+                <tbody
+                    id="alertTable">
                 </tbody>
 
             </table>
 
         </div>
+
 
     </div>
 
 
-    <!-- JAVASCRIPT -->
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
 
     <script>
 
-        // Today's date
 
-        document.getElementById("today").innerText =
+        /* =========================
+           TODAY'S DATE
+        ========================= */
+
+        document.getElementById("today")
+            .innerText =
             new Date().toLocaleDateString();
 
 
-        // ==============================
-        // LOAD PRODUCTS
-        // ==============================
+
+        /* =========================
+           LOAD PRODUCTS
+        ========================= */
 
         function loadProducts() {
 
             fetch("/products")
 
-                .then(response => response.json())
+                .then(response =>
+                    response.json()
+                )
 
                 .then(products => {
 
-                    document.getElementById("totalProducts").innerText =
+
+                    /* TOTAL PRODUCTS */
+
+                    document.getElementById(
+                        "totalProducts"
+                    ).innerText =
                         products.length;
 
 
-                    let lowStockProducts = products.filter(product =>
-                        product.quantity <= product.reorderLevel
-                    );
+
+                    /* FIND LOW STOCK */
+
+                    let lowStockProducts =
+                        products.filter(product =>
+
+                            product.quantity
+                            <=
+                            product.reorderLevel
+
+                        );
 
 
-                    document.getElementById("lowStock").innerText =
+
+                    /* LOW STOCK COUNT */
+
+                    document.getElementById(
+                        "lowStock"
+                    ).innerText =
                         lowStockProducts.length;
 
 
+
+                    /* LOW STOCK TABLE */
+
                     let table =
-                        document.getElementById("lowStockTable");
+                        document.getElementById(
+                            "lowStockTable"
+                        );
+
 
                     table.innerHTML = "";
 
 
-                    if (lowStockProducts.length === 0) {
+
+                    /* NO LOW STOCK */
+
+                    if (
+                        lowStockProducts.length
+                        === 0
+                    ) {
 
                         table.innerHTML = `
+
                             <tr>
-                                <td colspan="6" class="empty">
-                                    No low stock products 🎉
+
+                                <td
+                                    colspan="6"
+                                    class="empty"
+                                >
+
+                                    🎉
+                                    No low stock products
+
                                 </td>
+
                             </tr>
+
                         `;
 
                         return;
                     }
 
 
-                    lowStockProducts.forEach(product => {
 
-                        table.innerHTML += `
+                    /* DISPLAY LOW STOCK */
 
-                            <tr>
+                    lowStockProducts.forEach(
+                        product => {
 
-                                <td>
-                                    ${product.productId}
-                                </td>
+                            table.innerHTML += `
 
-                                <td>
-                                    ${product.productName}
-                                </td>
+                                <tr>
 
-                                <td>
-                                    ${product.category}
-                                </td>
+                                    <td>
+                                        ${product.productId}
+                                    </td>
 
-                                <td>
-                                    ${product.quantity}
-                                </td>
+                                    <td>
+                                        ${product.productName}
+                                    </td>
 
-                                <td>
-                                    ${product.reorderLevel}
-                                </td>
+                                    <td>
+                                        ${product.category}
+                                    </td>
 
-                                <td class="status-low">
-                                    LOW STOCK
-                                </td>
+                                    <td>
+                                        ${product.quantity}
+                                    </td>
 
-                            </tr>
+                                    <td>
+                                        ${product.reorderLevel}
+                                    </td>
 
-                        `;
+                                    <td
+                                        class="status-low"
+                                    >
 
-                    });
+                                        LOW STOCK
+
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    );
 
                 })
 
                 .catch(error => {
 
                     console.error(
-                        "Error loading products:",
+                        "Product loading error:",
                         error
                     );
 
@@ -470,43 +792,155 @@
         }
 
 
-        // ==============================
-        // LOAD ALERTS
-        // ==============================
+
+        /* =========================
+           LOAD ALERTS
+        ========================= */
 
         function loadAlerts() {
 
-            fetch("/reorder-alerts")
 
-                .then(response => response.json())
+            /*
+             * We fetch BOTH alerts and products.
+             *
+             * This lets the HTML check:
+             *
+             * quantity <= reorderLevel
+             *
+             * If the stock is now normal,
+             * we DON'T display the old alert.
+             */
 
-                .then(alerts => {
+            Promise.all([
 
-                    document.getElementById("totalAlerts").innerText =
-                        alerts.length;
+                fetch("/reorder-alerts")
+                    .then(response =>
+                        response.json()
+                    ),
 
+                fetch("/products")
+                    .then(response =>
+                        response.json()
+                    )
 
-                    let table =
-                        document.getElementById("alertTable");
-
-                    table.innerHTML = "";
-
-
-                    if (alerts.length === 0) {
-
-                        table.innerHTML = `
-                            <tr>
-                                <td colspan="4" class="empty">
-                                    No reorder alerts
-                                </td>
-                            </tr>
-                        `;
-
-                        return;
-                    }
+            ])
 
 
-                    alerts.forEach(alert => {
+            .then(([alerts, products]) => {
+
+
+                let table =
+                    document.getElementById(
+                        "alertTable"
+                    );
+
+
+                table.innerHTML = "";
+
+
+
+                /* =========================
+                   FILTER ACTIVE ALERTS
+                ========================= */
+
+                let activeAlerts =
+                    alerts.filter(alert => {
+
+
+                        /*
+                         * Find the product
+                         * belonging to this alert.
+                         */
+
+                        let product =
+                            products.find(
+                                p =>
+                                    p.productId
+                                    ===
+                                    alert.product.productId
+                            );
+
+
+
+                        /*
+                         * Product no longer exists
+                         */
+
+                        if (!product) {
+
+                            return false;
+
+                        }
+
+
+
+                        /*
+                         * ONLY show alert when
+                         * stock is still low.
+                         */
+
+                        return (
+
+                            product.quantity
+                            <=
+                            product.reorderLevel
+
+                        );
+
+                    });
+
+
+
+                /* =========================
+                   UPDATE ALERT COUNT
+                ========================= */
+
+                document.getElementById(
+                    "totalAlerts"
+                ).innerText =
+                    activeAlerts.length;
+
+
+
+                /* =========================
+                   NO ACTIVE ALERTS
+                ========================= */
+
+                if (
+                    activeAlerts.length
+                    === 0
+                ) {
+
+                    table.innerHTML = `
+
+                        <tr>
+
+                            <td
+                                colspan="4"
+                                class="empty"
+                            >
+
+                                🎉
+                                No active reorder alerts
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                /* =========================
+                   DISPLAY ACTIVE ALERTS
+                ========================= */
+
+                activeAlerts.forEach(
+                    alert => {
 
                         table.innerHTML += `
 
@@ -532,104 +966,152 @@
 
                         `;
 
-                    });
+                    }
+                );
 
-                })
+            })
 
-                .catch(error => {
 
-                    console.error(
-                        "Error loading alerts:",
-                        error
-                    );
+            .catch(error => {
 
-                });
+                console.error(
+                    "Alert loading error:",
+                    error
+                );
+
+            });
 
         }
 
 
-        // ==============================
-        // LOAD MOVEMENTS
-        // ==============================
+
+        /* =========================
+           LOAD STOCK MOVEMENTS
+        ========================= */
 
         function loadMovements() {
 
+
             fetch("/stock-movements")
 
-                .then(response => response.json())
+                .then(response =>
+                    response.json()
+                )
 
                 .then(movements => {
 
+
                     let table =
-                        document.getElementById("movementTable");
+                        document.getElementById(
+                            "movementTable"
+                        );
+
 
                     table.innerHTML = "";
 
 
-                    if (movements.length === 0) {
+
+                    /* NO MOVEMENTS */
+
+                    if (
+                        movements.length
+                        === 0
+                    ) {
 
                         table.innerHTML = `
+
                             <tr>
-                                <td colspan="5" class="empty">
+
+                                <td
+                                    colspan="5"
+                                    class="empty"
+                                >
+
                                     No stock movements yet
+
                                 </td>
+
                             </tr>
+
                         `;
 
                         return;
+
                     }
 
 
-                    // Show latest 5 movements
+
+                    /*
+                     * Show latest 5 movements
+                     */
 
                     let recentMovements =
-                        movements.slice(-5).reverse();
+                        movements
+                            .slice(-5)
+                            .reverse();
 
 
-                    recentMovements.forEach(movement => {
 
-                        let typeClass =
-                            movement.movementType.toUpperCase() === "IN"
-                            ? "movement-in"
-                            : "movement-out";
+                    recentMovements.forEach(
+                        movement => {
 
 
-                        table.innerHTML += `
+                            let type =
+                                movement
+                                    .movementType
+                                    .toUpperCase();
 
-                            <tr>
 
-                                <td>
-                                    ${movement.movementId}
-                                </td>
 
-                                <td>
-                                    ${movement.product.productId}
-                                </td>
+                            let typeClass =
+                                type === "IN"
+                                ? "movement-in"
+                                : "movement-out";
 
-                                <td>
-                                    ${movement.quantity}
-                                </td>
 
-                                <td class="${typeClass}">
-                                    ${movement.movementType}
-                                </td>
 
-                                <td>
-                                    ${movement.movementDate}
-                                </td>
+                            table.innerHTML += `
 
-                            </tr>
+                                <tr>
 
-                        `;
+                                    <td>
+                                        ${movement.movementId}
+                                    </td>
 
-                    });
+                                    <td>
+                                        ${movement.product.productId}
+                                    </td>
+
+                                    <td>
+                                        ${movement.quantity}
+                                    </td>
+
+                                    <td
+                                        class="${typeClass}"
+                                    >
+
+                                        ${type}
+
+                                    </td>
+
+                                    <td>
+                                        ${movement.movementDate}
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    );
 
                 })
+
 
                 .catch(error => {
 
                     console.error(
-                        "Error loading movements:",
+                        "Movement loading error:",
                         error
                     );
 
@@ -638,15 +1120,37 @@
         }
 
 
-        // ==============================
-        // LOAD DASHBOARD
-        // ==============================
+
+        /* =========================
+           INITIAL LOAD
+        ========================= */
 
         loadProducts();
+
         loadAlerts();
+
         loadMovements();
+
+
+
+        /* =========================
+           AUTO REFRESH
+        ========================= */
+
+        setInterval(() => {
+
+            loadProducts();
+
+            loadAlerts();
+
+            loadMovements();
+
+        }, 3000);
+
 
     </script>
 
+
 </body>
+
 </html>
