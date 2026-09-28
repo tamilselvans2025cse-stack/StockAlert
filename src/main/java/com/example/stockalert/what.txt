@@ -16,8 +16,7 @@ Use:
 - Thymeleaf
 - REST APIs
 
-Keep the project simple. Do not use DTOs, Lombok, complex security, microservices, or unnecessary advanced architecture.
-
+Keep the project simple. 
 Use this structure:
 
 com.example.stockalert
