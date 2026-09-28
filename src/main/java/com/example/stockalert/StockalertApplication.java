@@ -9,5 +9,5 @@ public class StockalertApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StockalertApplication.class, args);
 	}
-
+	
 }
