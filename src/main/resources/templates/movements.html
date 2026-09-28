@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Stock Alert - Stock Movements</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 230px;
+            height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .nav a {
+            display: block;
+            text-decoration: none;
+            color: #cbd5e1;
+            padding: 14px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 230px;
+            padding: 35px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+        }
+
+        .header p {
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* FORM */
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .form-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* TABLE */
+
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .table-box h2 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .in {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .out {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .empty {
+            color: #64748b;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            📦 Stock<span>Alert</span>
+        </div>
+
+        <div class="nav">
+
+            <a href="/">
+                🏠 Dashboard
+            </a>
+
+            <a href="/products-page">
+                📦 Products
+            </a>
+
+            <a href="/movements-page" class="active">
+                🔄 Stock Movements
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>Stock Movements</h1>
+
+            <p>
+                Track stock coming into and going out of the store
+            </p>
+
+        </div>
+
+
+        <!-- MOVEMENT FORM -->
+
+        <div class="form-box">
+
+            <h2>🔄 Add Stock Movement</h2>
+
+            <div class="form-grid">
+
+
+                <!-- PRODUCT ID -->
+
+                <div>
+
+                    <label>
+                        Product ID
+                    </label>
+
+                    <input
+                        id="movementProductId"
+                        type="number"
+                        placeholder="Enter Product ID"
+                    >
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div>
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <input
+                        id="movementQuantity"
+                        type="number"
+                        placeholder="Enter Quantity"
+                    >
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div>
+
+                    <label>
+                        Movement Type
+                    </label>
+
+                    <select id="movementType">
+
+                        <option value="">
+                            Select Type
+                        </option>
+
+                        <option value="IN">
+                            IN - Stock Received
+                        </option>
+
+                        <option value="OUT">
+                            OUT - Stock Sold
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="add-btn"
+                onclick="addMovement()">
+
+                Add Movement
+
+            </button>
+
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+        </div>
+
+
+        <!-- MOVEMENT TABLE -->
+
+        <div class="table-box">
+
+            <h2>📋 Movement History</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Movement ID</th>
+
+                        <th>Product ID</th>
+
+                        <th>Quantity</th>
+
+                        <th>Type</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="movementTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+
+        // =========================
+        // ADD MOVEMENT
+        // =========================
+
+        function addMovement() {
+
+
+            let productId =
+                Number(
+                    document.getElementById(
+                        "movementProductId"
+                    ).value
+                );
+
+
+            let quantity =
+                Number(
+                    document.getElementById(
+                        "movementQuantity"
+                    ).value
+                );
+
+
+            let movementType =
+                document.getElementById(
+                    "movementType"
+                ).value;
+
+
+            let message =
+                document.getElementById(
+                    "message"
+                );
+
+
+            // VALIDATION
+
+            if (
+                !productId ||
+                !quantity ||
+                !movementType
+            ) {
+
+                message.innerText =
+                    "Please fill all fields.";
+
+                message.style.color =
+                    "#dc2626";
+
+                return;
+            }
+
+
+            if (quantity <= 0) {
+
+                message.innerText =
+                    "Quantity must be greater than 0.";
+
+                message.style.color =
+                    "#dc2626";
+
+                return;
+            }
+
+
+            // CREATE MOVEMENT
+
+            let movement = {
+
+                quantity: quantity,
+
+                movementType: movementType,
+
+                movementDate:
+                    new Date()
+                    .toISOString()
+                    .split("T")[0],
+
+                product: {
+
+                    productId: productId
+
+                }
+
+            };
+
+
+            // SEND TO BACKEND
+
+            fetch("/stock-movements", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(movement)
+
+            })
+
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Movement failed"
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+
+            .then(() => {
+
+
+                message.innerText =
+                    "Stock movement added successfully!";
+
+                message.style.color =
+                    "#16a34a";
+
+
+                // CLEAR FORM
+
+                document.getElementById(
+                    "movementProductId"
+                ).value = "";
+
+                document.getElementById(
+                    "movementQuantity"
+                ).value = "";
+
+                document.getElementById(
+                    "movementType"
+                ).value = "";
+
+
+                // RELOAD TABLE
+
+                loadMovements();
+
+            })
+
+
+            .catch(error => {
+
+                console.error(error);
+
+                message.innerText =
+                    "Product not found or movement failed.";
+
+                message.style.color =
+                    "#dc2626";
+
+            });
+
+        }
+
+
+        // =========================
+        // LOAD MOVEMENTS
+        // =========================
+
+        function loadMovements() {
+
+
+            fetch("/stock-movements")
+
+                .then(response => response.json())
+
+                .then(movements => {
+
+
+                    let table =
+                        document.getElementById(
+                            "movementTable"
+                        );
+
+
+                    table.innerHTML = "";
+
+
+                    if (movements.length === 0) {
+
+                        table.innerHTML = `
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="empty"
+                                >
+
+                                    No stock movements yet.
+
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                        return;
+                    }
+
+
+                    movements
+                        .slice()
+                        .reverse()
+                        .forEach(movement => {
+
+
+                            let type =
+                                movement
+                                .movementType
+                                .toUpperCase();
+
+
+                            let typeClass =
+                                type === "IN"
+                                ? "in"
+                                : "out";
+
+
+                            table.innerHTML += `
+
+                                <tr>
+
+                                    <td>
+                                        ${movement.movementId}
+                                    </td>
+
+                                    <td>
+                                        ${movement.product.productId}
+                                    </td>
+
+                                    <td>
+                                        ${movement.quantity}
+                                    </td>
+
+                                    <td
+                                        class="${typeClass}"
+                                    >
+
+                                        ${type}
+
+                                    </td>
+
+                                    <td>
+                                        ${movement.movementDate}
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        });
+
+                })
+
+
+                .catch(error => {
+
+                    console.error(
+                        "Error loading movements:",
+                        error
+                    );
+
+                });
+
+        }
+
+
+        // =========================
+        // LOAD PAGE
+        // =========================
+
+        loadMovements();
+
+
+    </script>
+
+
+</body>
+
+</html>
