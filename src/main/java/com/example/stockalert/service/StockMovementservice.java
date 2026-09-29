@@ -31,11 +31,11 @@ public class StockMovementservice {
 
     public Stocksmovement addMovement(Stocksmovement movement) {
 
-        // Get product ID from the movement
+       
         Long productId =
                 movement.getProduct().getProductId();
 
-        // Find the actual product from database
+        
         Products existingProduct =
                 productsRepository.findById(productId)
                 .orElse(null);
@@ -44,9 +44,6 @@ public class StockMovementservice {
             return null;
         }
 
-        // =========================
-        // UPDATE PRODUCT QUANTITY
-        // =========================
 
         if (movement.getMovementType()
                 .equalsIgnoreCase("IN")) {
@@ -67,15 +64,14 @@ public class StockMovementservice {
             );
         }
 
-        // Save updated product
+       
         productsRepository.save(existingProduct);
 
 
-        // Attach actual product to movement
+     
         movement.setProduct(existingProduct);
 
 
-        // Set today's date
         if (movement.getMovementDate() == null) {
 
             movement.setMovementDate(
@@ -85,14 +81,11 @@ public class StockMovementservice {
         }
 
 
-        // Save movement
+      
         Stocksmovement savedMovement =
                 stockmovementsRepository.save(movement);
 
 
-        // =========================
-        // REORDER ALERT
-        // =========================
 
         if (existingProduct.getQuantity()
                 <= existingProduct.getReorderLevel()) {
