@@ -24,12 +24,12 @@ public class ProductService {
         this.reorderAlertsRepository = reorderAlertsRepository;
     }
 
-    // Add product
+    
     public Products addProduct(Products product) {
 
         Products savedProduct = productsRepository.save(product);
 
-        // Check if stock is low
+        
         if (savedProduct.getQuantity() <= savedProduct.getReorderLevel()) {
 
             Reorderalerts alert = new Reorderalerts();
@@ -50,17 +50,17 @@ public class ProductService {
         return savedProduct;
     }
 
-    // Get all products
+    
     public List<Products> getAllProducts() {
         return productsRepository.findAll();
     }
 
-    // Get product by ID
+    
     public Products getProductById(Long id) {
         return productsRepository.findById(id).orElse(null);
     }
 
-    // Update product
+    
     public Products updateProduct(Long id, Products product) {
 
         Products existing = productsRepository.findById(id).orElse(null);
@@ -77,7 +77,7 @@ public class ProductService {
 
         Products updatedProduct = productsRepository.save(existing);
 
-        // Check stock after update
+        
         if (updatedProduct.getQuantity() <= updatedProduct.getReorderLevel()) {
 
             Reorderalerts alert = new Reorderalerts();
@@ -98,7 +98,7 @@ public class ProductService {
         return updatedProduct;
     }
 
-    // Delete product
+    
     public void deleteProduct(Long id) {
         productsRepository.deleteById(id);
     }

@@ -16,22 +16,22 @@ public class ReorderAlertservice {
         this.reorderAlertsRepository = reorderAlertsRepository;
     }
 
-    // Add alert
+    
     public Reorderalerts addAlert(Reorderalerts alert) {
         return reorderAlertsRepository.save(alert);
     }
 
-    // Get all alerts
+    
     public List<Reorderalerts> getAllAlerts() {
         return reorderAlertsRepository.findAll();
     }
 
-    // Get alert by ID
+    
     public Reorderalerts getAlertById(Long id) {
         return reorderAlertsRepository.findById(id).orElse(null);
     }
 
-    // Delete alert
+    
     public void deleteAlert(Long id) {
         reorderAlertsRepository.deleteById(id);
     }
